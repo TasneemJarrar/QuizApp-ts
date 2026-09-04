@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@400;500;600;700&family=Fascinate+Inline&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url('./images/nattu-adnan-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Catamaran', sans-serif;
+    box-sizing: border-box;
+  }
+
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+}
