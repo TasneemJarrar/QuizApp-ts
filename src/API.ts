@@ -18,12 +18,21 @@ export const Difficulty = {
 export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty];
 export type QuestionsState = Question & { answers: string[] };
 
-
 export const fetchQuizQuestions = async (amount: number, difficulty: Difficulty): Promise<QuestionsState[]> => {
   const endpoint = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&type=multiple`;
-  const data = await (await fetch(endpoint)).json();
-  return data.results.map((question: Question) => ({
-    ...question,
-    answers: shuffleArray([...question.incorrect_answers, question.correct_answer])
-  }))
+
+  try {
+    const response = await fetch(endpoint);
+    if (!response.ok) throw new Error('Failed to fetch questions');
+
+    const data = await response.json();
+
+    return data.results.map((question: Question) => ({
+      ...question,
+      answers: shuffleArray([...question.incorrect_answers, question.correct_answer]),
+    }));
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
